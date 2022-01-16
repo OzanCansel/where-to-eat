@@ -22,6 +22,10 @@ int main( int argc , char* argv[] )
 
             placer::print_placement( argv[ 2 ] );
         }
+        else if ( command == "peek" )
+        {
+            placer::peek( "." );
+        }
     }
     else
     {

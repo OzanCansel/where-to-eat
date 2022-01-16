@@ -293,12 +293,12 @@ namespace placer
         }
     }
 
-    int find_next_idx( std::filesystem::path directory )
+    int find_last_idx( std::filesystem::path directory )
     {
         auto placements = list_files( directory , ".placement" );
-        int next_idx = 1;
+        int last_idx = 0;
 
-        if ( !placements.empty() )
+        if ( !empty( placements ) )
         {
             std::vector<int> placement_ids;
             placement_ids.reserve( size( placements ) );
@@ -314,13 +314,13 @@ namespace placer
                 }
             );
 
-            next_idx = *max_element(
+            last_idx = *max_element(
                 begin( placement_ids ) ,
                 end( placement_ids )
-            ) + 1;
+            );
         }
 
-        return next_idx;
+        return last_idx;
     }
 
     std::filesystem::path generate_filename_from_idx( int idx )
@@ -453,7 +453,7 @@ namespace placer
 
         new_placement = result.front().first;
 
-        auto next_idx = find_next_idx( root_p );
+        auto next_idx = find_last_idx( root_p ) + 1;
         auto filename = generate_filename_from_idx( next_idx );
 
         write_placement( root_p / filename , new_placement );
@@ -495,5 +495,16 @@ namespace placer
                   << " "
                   << placement.desc
                   << std::endl;
+    }
+
+    void peek( std::filesystem::path root_p )
+    {
+        auto filename = generate_filename_from_idx(
+            find_last_idx(
+                root_p
+            )
+        );
+
+        print_placement( filename );
     }
 }
