@@ -50,7 +50,7 @@ std::vector<std::string> read_lines( std::filesystem::path path , int skip = 1 )
 {
     std::ifstream lines_f { path };
 
-    if ( lines_f.bad() )
+    if ( lines_f.fail() )
         throw std::runtime_error {
             "Error occurred while reading " +
             std::string { path }
@@ -58,13 +58,10 @@ std::vector<std::string> read_lines( std::filesystem::path path , int skip = 1 )
 
     std::vector<std::string> lines;
 
-    while( !lines_f.eof() )
-    {
-        std::string line;
-        getline( lines_f , line );
+    std::string line;
 
+    while( getline( lines_f , line ) )
         lines.push_back( line );
-    }
 
     if ( skip == 1 )
     {
