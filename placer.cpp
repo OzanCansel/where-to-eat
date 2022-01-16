@@ -201,11 +201,9 @@ std::vector<place> read_placements(
     std::vector<place> placements;
 
     for ( const std::string& placement_f : placement_files )
-    {
-        auto placement = read_placement( placement_f , points );
-
-        placements.push_back( placement );
-    }
+        placements.push_back(
+            read_placement( placement_f , points )
+        );
 
     return placements;
 }
