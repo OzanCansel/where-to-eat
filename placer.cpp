@@ -12,6 +12,10 @@
 
 namespace placer
 {
+
+    static std::random_device rd;
+    static std::mt19937 gen { rd() };
+
     struct place
     {
         int         id;
@@ -225,7 +229,7 @@ namespace placer
             ss >> score.extra;
 
             score.where = find_or_throw( score.where , places );
-            
+
             scores.push_back( score );
         }
 
@@ -332,6 +336,36 @@ namespace placer
         return ss.str();
     }
 
+    void add_salt( std::vector<std::pair<place , int>>& scores )
+    {
+        if ( empty( scores ))
+            return;
+
+        shuffle(
+            begin( scores ) ,
+            end( scores ) ,
+            gen
+        );
+
+        auto max_score = max_element(
+            begin( scores ) ,
+            end( scores ) ,
+            []( const std::pair<place , int>& lhs , const std::pair<place , int>& rhs ){
+                return lhs.second < rhs.second;
+            }
+        )->second;
+
+        std::uniform_int_distribution<int> dist( 0 , max_score );
+
+        for_each (
+            begin( scores ) ,
+            end( scores ) ,
+            [ &dist ]( std::pair<place , int>& score_p ){
+                score_p.second += dist( gen );
+            }
+        );
+    }
+
     void write_placement( std::filesystem::path file , const place& placement )
     {
         std::ofstream placement_f { file };
@@ -426,6 +460,8 @@ namespace placer
             }
         };
 
+        add_salt( result );
+
         sort(
             begin( result ) ,
             end( result ) ,
@@ -439,9 +475,6 @@ namespace placer
                 return result.front().second == other.second;
             }
         );
-
-        std::random_device rd;
-        std::mt19937 gen { rd() };
 
         shuffle(
             begin( result ) ,
@@ -507,4 +540,5 @@ namespace placer
 
         print_placement( filename );
     }
+
 }
