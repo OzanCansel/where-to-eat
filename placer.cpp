@@ -71,11 +71,7 @@ std::vector<std::string> read_lines( std::filesystem::path path , int skip = 1 )
     if ( skip == 1 )
     {
         lines.erase(
-            remove(
-                begin( lines ) ,
-                end( lines ) ,
-                lines.front()
-            )
+            begin( lines )
         );
     }
     else if ( skip > 1 )
