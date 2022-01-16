@@ -96,7 +96,7 @@ std::vector<place> read_places( std::filesystem::path path )
         end( lines ) ,
         back_inserter( places ) ,
         []( std::string line ) {
-            std::stringstream ss { line };
+            std::istringstream ss { line };
             place p;
 
             ss >> p.id >> p.score >> p.desc;
@@ -153,7 +153,7 @@ place read_placement(
     if ( path.extension() != ".placement" )
         throw std::invalid_argument { "File extension is not '.placement'." };
 
-    std::stringstream ss { read_lines( path ).front() };
+    std::istringstream ss { read_lines( path ).front() };
 
     place pl;
 
@@ -219,7 +219,7 @@ std::vector<extra_score> read_extra_score(
 
     for ( const std::string& line : read_lines( score_f_path ) )
     {
-        std::stringstream ss { line };
+        std::istringstream ss { line };
 
         extra_score score;
 
@@ -327,7 +327,7 @@ int find_last_idx( std::filesystem::path directory )
 
 std::filesystem::path generate_filename_from_idx( int idx )
 {
-    std::stringstream ss;
+    std::ostringstream ss;
 
     ss << std::setfill( '0' ) << std::setw( 6 ) << idx << ".placement";
 
