@@ -13,8 +13,13 @@
 namespace placer
 {
 
+namespace
+{
+
 static std::random_device rd;
 static std::mt19937 gen { rd() };
+
+}
 
 struct place
 {
