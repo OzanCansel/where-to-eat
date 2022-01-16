@@ -351,9 +351,9 @@ void add_salt( std::vector<std::pair<place , int>>& scores )
         begin( scores ) ,
         end( scores ) ,
         []( const std::pair<place , int>& lhs , const std::pair<place , int>& rhs ){
-            return lhs.second < rhs.second;
+            return lhs.first.score < rhs.first.score;
         }
-    )->second;
+    )->first.score;
 
     std::uniform_int_distribution<int> dist( 0 , max_score );
 
