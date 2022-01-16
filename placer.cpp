@@ -61,7 +61,7 @@ std::vector<std::string> read_lines( std::filesystem::path path , int skip = 1 )
     std::string line;
 
     while( getline( lines_f , line ) )
-        lines.push_back( line );
+        lines.push_back( move( line ) );
 
     if ( skip == 1 )
     {
