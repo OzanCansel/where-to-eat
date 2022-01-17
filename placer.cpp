@@ -351,7 +351,7 @@ void add_salt( std::vector<std::pair<place , int>>& scores )
         }
     )->first.score;
 
-    std::uniform_int_distribution<int> dist( 0 , max_score );
+    std::uniform_int_distribution<int> dist( 0 , max_score / 2 );
 
     for_each (
         begin( scores ) ,
