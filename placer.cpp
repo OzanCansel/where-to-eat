@@ -400,9 +400,9 @@ void print_summary( const std::vector<std::pair<place , int>>& accumulator )
     for ( const auto& [ p , score ] : accumulator )
     {
         std::cout << std::setw( 6 )        << p.id
-                    << std::setw( 6 )        << score
-                    << std::setw( desc_len ) << p.desc
-                    << "\n";
+                  << std::setw( 6 )        << score
+                  << std::setw( desc_len ) << p.desc
+                  << "\n";
     }
 
     std::cout.flush();
@@ -519,11 +519,11 @@ void print_placement( std::filesystem::path placement_p )
     );
 
     std::cout << placement.id
-                << " "
-                << placement.score
-                << " "
-                << placement.desc
-                << std::endl;
+              << " "
+              << placement.score
+              << " "
+              << placement.desc
+              << std::endl;
 }
 
 void peek( std::filesystem::path root_p )
