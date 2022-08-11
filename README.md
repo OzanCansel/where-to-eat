@@ -111,4 +111,6 @@ Total collected points for 20 days
      7    40  hacettepe
 ```
 
+### Credits
+
 Thanks to __Ahmet Ilgin__ for the algorithm.
